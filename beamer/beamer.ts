@@ -1,18 +1,36 @@
 // Gemeinsamer Ablauf fuer den Acer Projector Web Server:
 // einloggen, Control Panel oeffnen, Power-Button schalten.
 // URL und Passwort stehen in config.json.
-const path = require('path');
-const { chromium } = require('playwright');
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { chromium } from 'playwright';
 
-const config = require(path.join(__dirname, 'config.json'));
+/** Gewuenschter Zustand des Beamers. */
+export type PowerTarget = 'on' | 'off';
+
+export interface Config {
+  /** Basis-URL des Beamer-Webservers. */
+  url: string;
+  /** Passwort des Benutzers "Administrator"; leer, wenn keines gesetzt ist. */
+  password: string;
+}
+
+export interface SetPowerOptions {
+  /** Browserfenster sichtbar mitlaufen lassen. */
+  headed?: boolean;
+}
+
+export const config = JSON.parse(
+  readFileSync(join(import.meta.dirname, 'config.json'), 'utf8'),
+) as Config;
 
 /**
  * Schaltet den Beamer.
- * @param {'on'|'off'} target Gewuenschter Zustand.
- * @param {{headed?: boolean}} opts
- * @returns {Promise<boolean>} true, wenn geklickt wurde; false, wenn der Zustand schon passte.
+ *
+ * @param target Gewuenschter Zustand.
+ * @returns true, wenn geklickt wurde; false, wenn der Zustand schon passte.
  */
-async function setPower(target, opts = {}) {
+export async function setPower(target: PowerTarget, opts: SetPowerOptions = {}): Promise<boolean> {
   const headed = Boolean(opts.headed);
   const browser = await chromium.launch({ headless: !headed, slowMo: headed ? 300 : 0 });
   const page = await browser.newPage();
@@ -57,7 +75,7 @@ async function setPower(target, opts = {}) {
     console.log(`Power ${target.toUpperCase()} gesendet.`);
     return true;
   } catch (err) {
-    console.error('Fehler:', err.message);
+    console.error('Fehler:', err instanceof Error ? err.message : err);
     await page.screenshot({ path: `beamer-error-${target}.png`, fullPage: true }).catch(() => {});
     throw err;
   } finally {
@@ -66,9 +84,7 @@ async function setPower(target, opts = {}) {
 }
 
 /** Wrapper fuer die CLI-Scripts: wertet --headed aus und setzt den Exit-Code. */
-function run(target) {
+export function run(target: PowerTarget): void {
   setPower(target, { headed: process.argv.includes('--headed') })
     .catch(() => process.exit(1));
 }
-
-module.exports = { setPower, run, config };

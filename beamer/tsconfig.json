@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "lib": ["esnext"],
+    "types": ["node"],
+
+    "strict": true,
+    "skipLibCheck": true,
+
+    // Node entfernt Typen nur, es kompiliert nicht: erlaubt ist deshalb
+    // ausschliesslich Syntax, die sich rueckstandslos loeschen laesst
+    // (keine enums, namespaces oder Parameter-Properties).
+    "erasableSyntaxOnly": true,
+    "verbatimModuleSyntax": true,
+
+    // Die Imports zeigen auf die .ts-Dateien, die Node direkt ausfuehrt.
+    "allowImportingTsExtensions": true,
+    "noEmit": true
+  },
+  "include": ["*.ts"]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "beamer",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Acer-Beamer per Playwright ueber das Web-Interface ein- und ausschalten",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "on": "node beamer-on.ts",
+    "off": "node beamer-off.ts",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "playwright": "^1.63.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.18.0",
+    "typescript": "^5.9.0"
+  }
+}
