@@ -1,6 +1,8 @@
 // Schaltet den Acer-Beamer aus.
-//   pnpm run off            (headless)
-//   pnpm run off -- --headed
-import { run } from './beamer.ts';
+//   pnpm run off                (ueber den HTTP-Endpunkt, schnell)
+//   pnpm run off -- --playwright   (ueber die Weboberflaeche, als Fallback)
+const mod = process.argv.includes('--playwright')
+  ? await import('./beamer.ts')
+  : await import('./beamer-api.ts');
 
-run('off');
+mod.run('off');

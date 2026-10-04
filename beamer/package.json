@@ -10,6 +10,7 @@
   "scripts": {
     "on": "node beamer-on.ts",
     "off": "node beamer-off.ts",
+    "status": "node beamer-status.ts",
     "typecheck": "tsc"
   },
   "dependencies": {
