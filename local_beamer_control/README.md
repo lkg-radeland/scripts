@@ -53,17 +53,35 @@ meldet.
 
 ## Installation
 
-Das Plugin ist nicht im Store; es wird direkt in den Plugin-Ordner gelegt. **Der
-Ordnername muss `local_beamer_control` bleiben** — Python kann Pakete mit Bindestrichen
-oder Punkten im Namen nicht importieren.
+Das Plugin ist nicht im Store; es wird direkt in den Plugin-Ordner gelegt.
+
+**Der Ordnername muss `local_beamer_control` bleiben.** StreamController importiert
+Plugins als `plugins.<ordnername>.main` — Python kann keine Pakete mit Bindestrichen oder
+Punkten im Namen laden.
 
 ```sh
-cp -r local_beamer_control ~/.var/app/com.core447.StreamController/data/plugins/
+git clone https://github.com/lkg-radeland/scripts.git
+cp -r scripts/local_beamer_control ~/.var/app/com.core447.StreamController/data/plugins/
 ```
 
-Bei einer Nicht-Flatpak-Installation stattdessen nach
-`~/.local/share/StreamController/plugins/`. Danach StreamController neu starten und die
-Action *Beamer Power* auf eine Taste ziehen.
+Alternativ ein Symlink, dann reicht künftig ein `git pull`:
+
+```sh
+ln -s "$PWD/scripts/local_beamer_control" \
+      ~/.var/app/com.core447.StreamController/data/plugins/local_beamer_control
+```
+
+Danach StreamController neu starten und die Action *Beamer Power* auf eine Taste ziehen.
+
+### Falls der Pfad nicht stimmt
+
+Der Plugin-Ordner ist `<DATA_PATH>/plugins`, und `DATA_PATH` ist standardmäßig
+`~/.var/app/com.core447.StreamController/data` — auch außerhalb von Flatpak, der Pfad ist
+im Quelltext fest verdrahtet. Überschrieben wird er durch:
+
+- den Startparameter `--data <pfad>`,
+- den Schlüssel `data-path` in `~/.var/app/com.core447.StreamController/static/settings.json`,
+- die Umgebungsvariable `PLUGIN_DIR`, die direkt den Plugin-Ordner setzt.
 
 ## Voraussetzungen
 
