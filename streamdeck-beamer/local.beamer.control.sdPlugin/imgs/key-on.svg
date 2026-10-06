@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144 144" width="144" height="144">
+  <rect width="144" height="144" fill="#101418"/>
+  <!-- Projektor, leuchtend -->
+  <path d="M26 92 L118 92 L118 108 L26 108 Z" fill="#2b3440"/>
+  <rect x="34" y="52" width="76" height="40" rx="7" fill="#3d4a5a"/>
+  <circle cx="60" cy="72" r="13" fill="#ffd24a"/>
+  <circle cx="60" cy="72" r="6" fill="#fff6d0"/>
+  <rect x="88" y="62" width="14" height="5" rx="2.5" fill="#6c7b8d"/>
+  <rect x="88" y="72" width="14" height="5" rx="2.5" fill="#6c7b8d"/>
+  <!-- Lichtkegel -->
+  <path d="M73 72 L128 46 L128 98 Z" fill="#ffd24a" opacity="0.28"/>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144 144" width="144" height="144">
+  <rect width="144" height="144" fill="#101418"/>
+  <!-- Projektor, dunkel -->
+  <path d="M26 92 L118 92 L118 108 L26 108 Z" fill="#232a33"/>
+  <rect x="34" y="52" width="76" height="40" rx="7" fill="#2b3440"/>
+  <circle cx="60" cy="72" r="13" fill="#39434f"/>
+  <circle cx="60" cy="72" r="6" fill="#4a5564"/>
+  <rect x="88" y="62" width="14" height="5" rx="2.5" fill="#3d4654"/>
+  <rect x="88" y="72" width="14" height="5" rx="2.5" fill="#3d4654"/>
+</svg>

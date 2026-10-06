@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "lib": ["es2023", "dom"],
+    "types": ["node"],
+
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+
+    // Das SDK nutzt Standard-Decorators (ClassDecoratorContext),
+    // nicht die alten experimentellen. Also NICHT experimentalDecorators setzen.
+    "useDefineForClassFields": true
+  },
+  "include": ["src/**/*.ts"]
+}
