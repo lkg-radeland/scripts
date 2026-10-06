@@ -109,6 +109,16 @@ Gemessen: Ausschalten greift sofort (~14 s, davon fast alles Verifikation), Eins
 aus der Abkühlphase heraus brauchte **156 s und vier Nachfass-Versuche**. Der Default-
 Timeout liegt deshalb bei 300 s.
 
+Eine gezielte Messung (alle 15 s ein Einschaltversuch) hat die Grenze eingegrenzt: bei
+**152 s noch abgelehnt, bei 171 s angenommen**. Achtung, in dem Test lief die Lampe vorher
+nur ~10 s — nach stundenlangem Betrieb dürfte die Abkühlung länger dauern.
+
+**Der Beamer meldet die Abkühlphase nicht.** Über 388 s hinweg im 5-Sekunden-Takt gemessen,
+blieb `syssta` durchgehend auf `Standby` und `pwr` auf `"0"` — kein eigener Zustand, kein
+Übergang. Der Status springt bereits 9 s nach dem Ausschaltbefehl auf `Standby`, während
+die Lampe noch kühlt. Wer wissen will, ob eingeschaltet werden kann, muss es also aus dem
+Zeitpunkt des Ausschaltens ableiten oder es schlicht versuchen.
+
 **Standby liefert teils Platzhalter.** Im Standby kann `status` für Lampenstunden und
 Bildmodus `0` und als Quelle `No Signal` zurückgeben statt der echten Werte. Verlässlich
 ist dort nur `Status` selbst.

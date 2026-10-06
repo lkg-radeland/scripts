@@ -30,8 +30,15 @@ import urllib.request
 from dataclasses import dataclass
 from http.cookiejar import CookieJar
 
-#: Dauer der Abkuehlphase in Sekunden. Gemessen wurden 156 s, bis ein
-#: Einschaltbefehl wieder angenommen wurde; mit Reserve gerundet.
+#: Dauer der Abkuehlphase in Sekunden.
+#:
+#: Gemessen am P6600 (alle 15 s ein Einschaltversuch): bei 152 s noch abgelehnt,
+#: bei 171 s angenommen. Die Lampe lief in dem Test allerdings nur kurz - nach
+#: langem Betrieb duerfte die Abkuehlung laenger dauern.
+#:
+#: Ist der Wert zu niedrig, ist das nicht schlimm: Die Taste zeigt dann zu frueh
+#: "AUS", ein Druck landet in der Aufwaermphase und wird dort alle 30 s
+#: wiederholt, bis der Beamer anspringt.
 COOLDOWN_S = 180.0
 
 #: Zeitfenster, in dem ein Einschaltvorgang als "laeuft noch" gilt.
@@ -182,9 +189,13 @@ class BeamerClient:
         """Aktuellen Anzeigezustand ermitteln.
 
         Der Beamer unterscheidet nicht zwischen "aus" und "kuehlt noch ab" -
-        beides meldet er als Standby. Die Abkuehlphase wird deshalb aus dem
-        beobachteten Uebergang an -> aus abgeleitet. Meldet die Statusseite
-        doch einen eigenen Begriff (etwa "Cooling"), hat der Vorrang.
+        beides meldet er als Standby. Nachgemessen: ueber 388 s hinweg blieb
+        syssta durchgehend "Standby", der Status springt schon 9 s nach dem
+        Ausschaltbefehl um. Die Abkuehlphase wird deshalb aus dem beobachteten
+        Uebergang an -> aus abgeleitet.
+
+        Die Abfrage auf "cool" bleibt als Fallback stehen, falls ein anderes
+        Modell doch einen eigenen Begriff meldet; beim P6600 greift sie nie.
         """
         try:
             syssta = self._syssta()

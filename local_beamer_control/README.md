@@ -30,12 +30,23 @@ Rückmeldung drückt man also auf eine Taste, die zu funktionieren scheint, und 
 passiert.
 
 Erschwerend kommt hinzu: Der Beamer unterscheidet selbst nicht zwischen „aus" und „kühlt
-noch ab" — beides meldet er als `Standby`. Das Plugin leitet die Abkühlphase deshalb aus
-dem beobachteten Übergang *an → aus* ab und zeigt einen Countdown. Gemessen wurden **156
-Sekunden**, bis ein Einschaltbefehl wieder angenommen wurde; der Timer läuft mit 180.
+noch ab". **Nachgemessen** — über 388 Sekunden im 5-Sekunden-Takt blieb `syssta`
+durchgehend auf `Standby`, und der Status springt schon 9 Sekunden nach dem
+Ausschaltbefehl um, während die Lampe noch kühlt. Es gibt also keinen Zustand, den man
+auslesen könnte.
 
-Sollte ein Gerät doch einen eigenen Begriff melden (etwa `Cooling`), hat der Vorrang vor
-dem geschätzten Timer — die Logik prüft das zuerst.
+Das Plugin leitet die Abkühlphase deshalb aus dem beobachteten Übergang *an → aus* ab und
+zeigt einen Countdown. Die Grenze wurde gezielt eingegrenzt (alle 15 s ein
+Einschaltversuch): **bei 152 s noch abgelehnt, bei 171 s angenommen**. Der Timer läuft
+mit 180 Sekunden.
+
+Einschränkung: In dem Test lief die Lampe vorher nur rund 10 Sekunden. Nach stundenlangem
+Betrieb dürfte die Abkühlung länger dauern. Schlimm ist das nicht — läuft der Countdown zu
+früh ab, zeigt die Taste `AUS`, ein Druck landet in der Aufwärmphase und wird dort alle 30
+Sekunden wiederholt, bis der Beamer anspringt.
+
+Die Prüfung auf eine gerätegemeldete `Cooling`-Angabe bleibt als Fallback für andere
+Modelle im Code; beim P6600 greift sie nie.
 
 Beim Einschalten fasst das Plugin alle 30 Sekunden nach, bis der Beamer tatsächlich `an`
 meldet.
