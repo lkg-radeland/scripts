@@ -1,1 +1,6 @@
-streamdeck-beamer/node_modules/.modules.yaml
+# Node (beamer/)
+node_modules/
+
+# Python (local_beamer_control/)
+__pycache__/
+*.py[cod]

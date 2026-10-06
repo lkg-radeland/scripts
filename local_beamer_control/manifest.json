@@ -1,0 +1,11 @@
+{
+    "version": "1.0.0",
+    "thumbnail": "assets/beamer-on.png",
+    "id": "local_beamer_control",
+    "name": "Beamer",
+    "app_version": "1.5.0-beta.7",
+    "descriptions": {
+        "en_US": "Switch an Acer projector over the network. The key shows the current state, including the cooldown period.",
+        "de_DE": "Schaltet einen Acer-Beamer über das Netzwerk. Die Taste zeigt den aktuellen Zustand an, einschließlich der Abkühlphase."
+    }
+}
